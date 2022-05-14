@@ -1,0 +1,34 @@
+cloud:
+  aws:
+    credentials:
+      access-key: AKIAYTRWT6LJBH7ZM4MR
+      secret-key: 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
+    region:
+      static: ap-south-1
+    stack:
+      auto: false
+
+application:
+  bucket:
+    name: saieeash-aws-bucket
+
+
+spring:
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 4MB
+      max-file-size: 5MB
+      max-request-size: 10MB
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console.enabled: true
+
+server:
+  port: 9090
+
