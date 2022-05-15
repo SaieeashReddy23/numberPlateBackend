@@ -7,6 +7,9 @@ import com.amazonaws.services.rekognition.model.*;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.util.IOUtils;
+import com.sai.numberPlate.Entity.VehicleDetails;
+import com.sai.numberPlate.modals.VehicleAllDetails;
+import com.sai.numberPlate.repository.VehicleDetailsRepo;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -32,6 +36,9 @@ public class StorageService {
     @Autowired
     private AmazonRekognition rekognition;
 
+    @Autowired
+    private VehicleDetailsRepo repo;
+
 
     public List<TextDetection> uploadFile(MultipartFile file){
 
@@ -45,10 +52,11 @@ public class StorageService {
         return  detectText(fileName);
     }
 
-    public String uploadText(String text){
+    public String uploadText(VehicleAllDetails vehicleAllDetails){
         log.error(("Entered the upload text method"));
         String fileName = "VehicleNumber/" +  System.currentTimeMillis();
-        s3Client.putObject(bucketName,fileName,text);
+        repo.save(new VehicleDetails(vehicleAllDetails.getText(), vehicleAllDetails.getLatitude(), vehicleAllDetails.getLongitude(),vehicleAllDetails.getTimestamp()));
+//        s3Client.putObject(bucketName,fileName,text);
         return "uploaded successful";
     }
 

@@ -5,6 +5,7 @@ import com.sai.numberPlate.Entity.UniqIdEntity;
 import com.sai.numberPlate.modals.Registered;
 import com.sai.numberPlate.modals.Student;
 import com.sai.numberPlate.modals.Text;
+import com.sai.numberPlate.modals.VehicleAllDetails;
 import com.sai.numberPlate.repository.UniqIdRepo;
 import com.sai.numberPlate.service.StorageService;
 import lombok.extern.slf4j.Slf4j;
@@ -39,11 +40,11 @@ public class StorageController {
 
 
     @RequestMapping(value = "/upload/text")
-    public ResponseEntity<String> uploadText(@RequestBody Text text){
+    public ResponseEntity<String> uploadText(@RequestBody VehicleAllDetails vehicleAllDetails){
         log.error("entered the upload text nethod");
-        System.out.println(text.getText());
+        System.out.println(vehicleAllDetails);
 
-        return new ResponseEntity<>(storageService.uploadText(text.getText()),HttpStatus.OK);
+        return new ResponseEntity<>(storageService.uploadText(vehicleAllDetails),HttpStatus.OK);
     }
 
 
